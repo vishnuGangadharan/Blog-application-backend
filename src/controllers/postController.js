@@ -2,19 +2,22 @@ import Post from "../model/blog.js";
 
 export const addPost = async(req,res) => {
     try {
+        console.log('here');
+        
+    const data = req.body;        
         console.log('user',req.userId);
         let userId = req.userId;
-        console.log('post',req.body);
-        console.log('post',req.files);
-        const { heading, content } = req.body;
-        const coverPic = req.files.coverImage[0]?.filename; 
-    const optionalPic = req.files.optionalImage ? req.files.optionalImage[0]?.filename : null;
-    console.log(coverPic,optionalPic);
+        // console.log('post',req.body);
+        // console.log('post',req.files);
+        // const { heading, content } = req.body;
+        // const coverPic = req.files.coverImage[0]?.filename; 
+        let {heading ,content, coverImage , optionalImage} = req.body
+   
     const newPost = new Post({
         heading,
         content,
-        coverImage:coverPic,
-        optionalImage: optionalPic ,
+        coverImage:coverImage,
+        optionalImage: optionalImage ? optionalImage : null,
         userId
       });
       await newPost.save();
@@ -100,11 +103,10 @@ export const deleteBlog = async(req,res) => {
 
 export const editBlog = async(req,res) => {
     try {
-
+        console.log('edit page ',req.body);
+        
         const { id } = req.query; 
-        const { heading, content } = req.body; 
-        const coverPic = req.files?.coverImage ? req.files.coverImage[0]?.filename : null;
-        const optionalPic = req.files?.optionalImage ? req.files.optionalImage[0]?.filename : null;
+        const { heading, content, coverImage, optionalImage } = req.body; 
     
         const updateFields = {};
     
@@ -112,9 +114,10 @@ export const editBlog = async(req,res) => {
     
         if (content) updateFields.content = content;
     
-        if (coverPic) updateFields.coverImage = coverPic;
+        if (coverImage) updateFields.coverImage = coverImage;
 
-            if (optionalPic) updateFields.optionalImage = optionalPic;
+        if (optionalImage) updateFields.optionalImage = optionalImage;
+
             const updatedPost = await Post.findByIdAndUpdate(
           id,
           { $set: updateFields },

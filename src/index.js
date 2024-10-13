@@ -10,6 +10,7 @@ import morgan  from 'morgan'
 dotenv.config()
 
 const port =process.env.PORT
+console.log('front',process.env.FRONTEND_URL);
 
 connectDB()
 const  server = http.createServer(app);
@@ -18,7 +19,7 @@ app.use('/uploads', express.static('public/uploads'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 const corsOptions = {
-  origin:['http://localhost:3001', 'https://blog-application-sand-seven.vercel.app']  ,
+  origin:process.env.FRONTEND_URL  ,
   methods: 'GET,POST,PUT,DELETE', 
   allowedHeaders: ['Content-Type', 'Authorization'], 
   credentials: true
