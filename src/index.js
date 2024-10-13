@@ -19,9 +19,9 @@ app.use('/uploads', express.static('public/uploads'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 const corsOptions = {
-  origin: 'https://blog-application-sand-seven.vercel.app' ,
-  methods:  ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], 
-  allowedHeaders:['Content-Type', 'Authorization', 'Access-Control-Allow-Origin'] ,
+  origin:process.env.FRONTEND_URL ,
+  methods: 'GET,POST,PUT,DELETE', 
+  allowedHeaders: ['Content-Type', 'Authorization'], 
   credentials: true
 };
 
