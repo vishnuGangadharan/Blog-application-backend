@@ -12,8 +12,7 @@ userRouter.get('/getBlog',userAuth, (req,res)=>getPost(req,res))
 userRouter.get('/userPosts',userAuth, (req,res)=>userPosts(req,res))
 userRouter.get('/blogData',userAuth, (req,res)=>blogData(req,res))
 userRouter.delete('/deleteBlog',userAuth, (req,res)=>deleteBlog(req,res))
-userRouter.post('/editPost',userAuth,upload.fields([{ name: 'coverImage', maxCount: 1 },{name: 'optionalImage', maxCount: 1 },
-]) ,(req,res)=>editBlog(req,res))
+userRouter.post('/editPost',userAuth ,(req,res)=>editBlog(req,res))
 
 
 export default userRouter
